@@ -1,0 +1,118 @@
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Calendar, Music, Church, Stethoscope, Baby, Coffee, PartyPopper } from "lucide-react"
+import Link from "next/link"
+import { motion } from "framer-motion"
+
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-amber-100 via-orange-200 to-amber-100 font-['Noto_Kufi_Arabic']">
+      <div className="absolute inset-0 overflow-hidden z-0">
+        <div className="absolute inset-0 bg-[url('/cross-pattern.svg')] opacity-5 animate-slide"></div>
+      </div>
+      <div className="relative z-10">
+        <header className="bg-white bg-opacity-80 backdrop-blur-md shadow-lg">
+          <div className="container mx-auto px-4 py-6">
+            <h1 className="text-4xl font-bold text-center text-amber-800 font-['Playfair_Display']">دير الأنبا أنطونيوس - الغردقة</h1>
+          </div>
+        </header>
+
+        <main className="container mx-auto px-4 py-12">
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-12 text-center"
+          >
+            <h2 className="text-3xl font-semibold mb-4 text-amber-900">مرحباً بكم في موقع دير الأنبا أنطونيوس</h2>
+            <p className="text-xl text-amber-800 mb-6">نحن نقدم مجموعة متنوعة من الخدمات والأنشطة لمجتمعنا</p>
+            <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg">
+              <Image
+                src="/placeholder.svg"
+                alt="صورة دير الأنبا أنطونيوس"
+                layout="fill"
+                objectFit="cover"
+                className="transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          </motion.section>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <ActivityCard
+              title="القداسات"
+              description="مواعيد القداسات اليومية والأسبوعية"
+              icon={<Church className="h-8 w-8 text-amber-600" />}
+              href="/liturgies"
+            />
+            <ActivityCard
+              title="حصص الألحان"
+              description="جدول حصص تعليم الألحان الكنسية"
+              icon={<Music className="h-8 w-8 text-amber-600" />}
+              href="/hymns"
+            />
+            <ActivityCard
+              title="العيادات"
+              description="مواعيد العيادات الطبية المتاحة"
+              icon={<Stethoscope className="h-8 w-8 text-amber-600" />}
+              href="/clinics"
+            />
+            <ActivityCard
+              title="الحضانة"
+              description="معلومات عن خدمات الحضانة"
+              icon={<Baby className="h-8 w-8 text-amber-600" />}
+              href="/nursery"
+            />
+            <ActivityCard
+              title="الكافيتيريا"
+              description="قائمة الطعام ومواعيد العمل"
+              icon={<Coffee className="h-8 w-8 text-amber-600" />}
+              href="/cafeteria"
+            />
+            <ActivityCard
+              title="حفلة آخر السنة"
+              description="تفاصيل حفلة نهاية العام"
+              icon={<PartyPopper className="h-8 w-8 text-amber-600" />}
+              href="/new-year-party"
+            />
+          </motion.div>
+        </main>
+
+        <footer className="bg-amber-800 text-amber-100 py-6 mt-12">
+          <div className="container mx-auto px-4 text-center">
+            <p className="text-lg">&copy; 2024 دير الأنبا أنطونيوس - الغردقة. جميع الحقوق محفوظة.</p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  )
+}
+
+function ActivityCard({ title, description, icon, href }) {
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <Card className="bg-white bg-opacity-80 backdrop-blur-sm hover:shadow-xl transition-shadow duration-300">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-3 text-2xl text-amber-800">
+            {icon}
+            <span>{title}</span>
+          </CardTitle>
+          <CardDescription className="text-lg text-amber-700">{description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Link href={href} passHref>
+            <Button className="w-full bg-amber-600 hover:bg-amber-700 text-white">عرض التفاصيل</Button>
+          </Link>
+        </CardContent>
+      </Card>
+    </motion.div>
+  )
+}
